@@ -14,7 +14,8 @@ DB_CONFIG = {
     "database": "usopessoal"
 }
 
-EMAIL_RE = re.compile(r"^[^\s@]+@[^\s@]+\[^\s@]+$")
+# Versão corrigida
+EMAIL_RE = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
 
 def senha_forte(s: str) -> bool:
     if len(s) < 8:
@@ -31,9 +32,9 @@ def home():
 
 @app.post("/register")
 def register():
-    nome = (request.form.get("nome" or "")).strip()
-    email = (request.form.get("email" or "")).strip()
-    senha = (request.form.get("senha" or "")).strip()
+    nome = (request.form.get("nome")).strip()
+    email = (request.form.get("email")).strip()
+    senha = (request.form.get("senha")).strip()
 
     if (len(nome) < 3):
         return "Nome deve ter pelo menos 3 caracteres", 400
@@ -60,7 +61,7 @@ def register():
         )
         conn.commit()
 
-        return redirect(url_for(home))
+        return redirect(url_for('home'))
     
     except mysql.connector.Error as e:
         return f"Erro no banco de dados: {e}", 500
