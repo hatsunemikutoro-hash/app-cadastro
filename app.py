@@ -35,9 +35,18 @@ def register():
     nome = (request.form.get("nome")).strip()
     email = (request.form.get("email")).strip()
     senha = (request.form.get("senha")).strip()
+    # novos inputs
+    cpf = (request.form.get("cpf", "")).strip()
+    endereco = (request.form.get("endereco")).strip()
+    estado = (request.form.get("estado")).strip()
+    cidade = (request.form.get("cidade")).strip()
+
+    
 
     if (len(nome) < 3):
         return "Nome deve ter pelo menos 3 caracteres", 400
+    if (len(cpf) < 11):
+        return "CPF INVALIDO!", 400
     if not EMAIL_RE.match(email):
         return "Email invalido", 400
     if not senha_forte(senha):
@@ -56,8 +65,8 @@ def register():
             return "Esse email já esta cadastrado.", 400
         
         cur.execute(
-            "INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
-            (nome,email,senha)
+            "INSERT INTO usuarios (nome, email, senha, cpf, endereco, estado, cidade) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            (nome,email,senha, cpf, endereco, estado,cidade)
         )
         conn.commit()
 

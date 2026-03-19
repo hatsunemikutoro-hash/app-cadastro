@@ -2,6 +2,12 @@ const form = document.getElementById("form");
 const nome = document.getElementById("nome");
 const email = document.getElementById("email");
 const senha = document.getElementById("senha");
+// NOVOS INPUTS
+const cpf = document.getElementById("cpf");
+const endereco = document.getElementById("endereco");
+const estado = document.getElementById("estado");
+const cidade = document.getElementById("cidade");
+
 const msg = document.getElementById("msg");
 const regras = document.getElementById("regras");
 
@@ -30,6 +36,9 @@ form.addEventListener("submit", (e) => {
 
   const erros = [];
   if (nome.value.trim().length < 3) erros.push("Nome deve ter pelo menos 3 caracteres.");
+  if (cpf.value.replace(/\D/g, "").length < 11) {
+    erros.push("O CPF deve conter 11 dígitos.");
+}
   if (!validarEmail(email.value)) erros.push("E-mail inválido.");
   erros.push(...validarSenha(senha.value));
 
