@@ -10,8 +10,8 @@ DB_CONFIG = {
     "host": "127.0.0.1",
     "port": 3306,
     "user": "root",
-    "password": "aguaviva123",
-    "database": "usopessoal"
+    "password": "1234567",
+    "database": "aguaviva123"
 }
 
 # Versão corrigida
@@ -29,6 +29,31 @@ def senha_forte(s: str) -> bool:
 @app.get("/")
 def home():
     return render_template("index.html")
+
+@app.get("/perfil")
+def perfil():
+    conn = None
+    cur = None
+
+    try:
+        conn = mysql.connector.connect(**DB_CONFIG)
+        cur = conn.cursor(dictionary=True)
+
+        # Buscar usuário
+        cur.execute("SELECT id, nome, email, cpf, endereco, estado, cidade FROM usuarios WHERE id = %s", (1,))
+        usuario = cur.fetchone()
+        if not usuario:
+            return "Usuario nao encontrado", 404
+        
+        return render_template("perfil.html", usuario=usuario)
+    except mysql.connector.Error as e:
+        return f"Error no banco de dados {e}", 500
+    
+    finally:
+        if cur:
+            cur.close()
+            if conn:
+                conn.close()
 
 @app.post("/register")
 def register():

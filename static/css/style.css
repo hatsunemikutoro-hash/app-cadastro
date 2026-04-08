@@ -1,66 +1,165 @@
-*{
+/* Importando uma fonte mais elegante */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* 1. Variáveis com Paleta Vibrante e Neons */
+:root {
+    --neon-pink: #ff2a85;
+    --neon-blue: #8a2be2;
+    --neon-cyan: #00e5ff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --text-main: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.75);
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
 }
 
-body{
-    font-family: Arial;
-    background: #f4f6f8;
+/* Fundo animado incrivelmente colorido */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #ff2a85, #8a2be2, #00e5ff, #f953c6);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-.box{
-    max-width: 570px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 22px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0,.08);
+/* Animação suave do Fundo */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-p{
+/* 2. Glassmorphism - O segredo da beleza moderna (Efeito de Vidro Fosco) */
+.box {
+    max-width: 450px;
+    width: 100%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px); /* O desfoque mágico */
+    -webkit-backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 35px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* 3. Tipografia Refinada */
+p {
     display: block;
-    margin-top: 12px;
+    margin-top: 20px;
+    font-size: 0.9rem;
     font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
-input{
+/* 4. Inputs com Efeito Translúcido e Foco Neon */
+input {
     width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border: 1px sollid #ccc;
-    border-radius: 8px;
+    padding: 14px 20px;
+    margin-top: 8px;
+    background: rgba(0, 0, 0, 0.15);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: white;
+    outline: none;
+    transition: all 0.3s ease;
 }
 
-button{
-    margin-top: 16px;
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input:focus {
+    border-color: var(--neon-cyan);
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* 5. Botão com Gradiente Dinâmico */
+button {
+    margin-top: 32px;
     width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border: 0;
-    border-radius: 8px;
+    padding: 16px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue), var(--neon-cyan));
+    background-size: 300%;
+    color: white;
+    border: none;
+    border-radius: 12px;
     cursor: pointer;
     font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
 }
 
-.msg{
-    margin-top: 12px;
-    padding: 10px;
-    border-radius: 8px;
+button:hover {
+    background-position: 100%;
+    transform: scale(1.03);
+    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.5);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* 6. Mensagens de Feedback Brilhantes */
+.msg {
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
     display: none;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.ok{
-    background: #e9fff0;
-    border-radius: 1px solid #82d09a;
+.ok {
+    display: block;
+    background: rgba(46, 213, 115, 0.15);
+    color: #2ed573;
+    border: 1px solid #2ed573;
+    box-shadow: 0 0 15px rgba(46, 213, 115, 0.3);
 }
 
-.erro{
-    background: #ffecec;
-    border: 1px solid #e07a7a;
+.erro {
+    display: block;
+    background: rgba(255, 71, 87, 0.15);
+    color: #ff4757;
+    border: 1px solid #ff4757;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
 }
 
-ul{
-    margin: 10px 0 0;
-    padding-left: 18px;
+/* 7. Listas */
+ul {
+    margin: 16px 0 0;
+    padding-left: 20px;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+/* Animação com efeito "Pulo" para as mensagens */
+@keyframes popIn {
+    0% { opacity: 0; transform: translateY(10px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
