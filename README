@@ -1,0 +1,14 @@
+CREATE TABLE usuarios (
+    id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    cpf CHAR(11) NOT NULL UNIQUE,
+    endereco VARCHAR(255),
+    cidade VARCHAR(100),
+    estado CHAR(2),
+    PRIMARY KEY (id)
+);
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'NovaSenhaAqui';
+FLUSH PRIVILEGES;
