@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 </head>
 <body>
     <h1> Perfil do Usuário</h1>
 
-    <p><strong>ID</strong> {{usuario.id}}</p>
-    <p><strong>Nome:</strong> {{usuario.nome}}</p>
-    <p><strong>Email</strong> {{usuario.email}}</p>
-    <p><strong>cpf</strong> {{usuario.cpf}}</p>
-    <p><strong>endereco</strong> {{usuario.endereco}}</p>
-    <p><strong>estado</strong> {{usuario.estado}}</p>
-    <p><strong>cidade</strong> {{usuario.cidade}}</p>
-
-    <br>
-
-    <a href="/">Voltar</a>
+    <div class="card">
+        <div class="box">
+            <div class="profilePic">
+                <img src="https://th.bing.com/th/id/OIP._HTokeftFVwzj67zgmYfXwHaEK?w=312&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="">
+                <p><strong>Nome:</strong> {{usuario.nome}}</p>
+            </div>
+            <p><strong>ID</strong> {{usuario.id}}</p>
+            <p><strong>Email</strong> {{usuario.email}}</p>
+            <p><strong>cpf</strong> {{usuario.cpf}}</p>
+            <p><strong>endereco</strong> {{usuario.endereco}}</p>
+            <p><strong>estado</strong> {{usuario.estado}}</p>
+            <p><strong>cidade</strong> {{usuario.cidade}}</p>
+        </div>
+        <br>
+    
+        <a href="/" class="btnSair">Voltar</a>
+    </div>
+   
 </body>
 </html>

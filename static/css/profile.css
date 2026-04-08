@@ -8,7 +8,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    color: #ffffff;
+    color: #333;
 }
 
 h1 {
@@ -32,43 +32,19 @@ h1 {
 }
 
 .box {
-    background-color: #0f642e;
-    padding: 19px;
     text-align: left;
-    border-radius: 10px;
+    border-bottom: 1px solid #eee;
     padding-bottom: 20px;
-}
-
-input {
-    padding: 5px;
-    border-radius: 20px;
-    border:none
-}
-
-button {
-    margin: 5px;
-    padding: 10px;
-    border-radius: 20px;
-    border:none
-}
-
-a {
-    color: white;
-    background-color: #4ff07a;
-    border: none;
-    text-decoration: none;
-    padding: 7px;
-    border-radius: 15px;
 }
 
 .box p {
     margin: 10px 0;
     font-size: 14px;
-    color: #dfdfdf;
+    color: #555;
 }
 
 .box strong {
-    color: #0fb237;
+    color: #764ba2;
     text-transform: uppercase;
     font-size: 12px;
     display: inline-block;
@@ -80,7 +56,6 @@ a {
     padding: 15px;
     border-radius: 12px;
     margin-bottom: 20px;
-    border-left: 5px solid #000000;
 }
 
 .profilePic p {
@@ -88,6 +63,22 @@ a {
     font-size: 18px;
     font-weight: bold;
     color: #333;
+}
+
+img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%; /* deixa redonda tipo avatar */
+    border: 4px solid #4ff07a;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .btnSair {
