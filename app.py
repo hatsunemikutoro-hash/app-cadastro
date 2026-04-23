@@ -49,7 +49,6 @@ def login():
             return "Usuário não encontrado.", 404
         
         # O SQLite retorna bytes ou string dependendo da versão/config, 
-        # mas o bcrypt precisa de bytes.
         if not bcrypt.checkpw(senha.encode("utf-8"), usuario["senha"].encode("utf-8")):
             return "Senha incorreta.", 401
 
@@ -62,11 +61,23 @@ def login():
     finally:
         conn.close()
 
+# ========= logout
 @app.get("/logout")
 def logout():
     session.clear()
     return redirect(url_for("login_page"))
 
+@app.get("/edit_pg")
+def editpg():
+    if "usuario_id" not in session:
+        return redirect(url_for("login_page"))
+        
+    conn = get_db_connection()
+    usuario = conn.execute("SELECT * FROM usuarios WHERE id = ?", (session["usuario_id"],)).fetchone()
+    conn.close()
+    return render_template("edit.html", usuario=usuario)
+
+# ========= perfil
 @app.get("/perfil")
 def perfil():
     # CORREÇÃO: A chave era 'usuario_id', não 'usuario.id'
@@ -77,7 +88,7 @@ def perfil():
     try:
         # CORREÇÃO: Usando '?' para SQLite
         usuario = conn.execute(
-            "SELECT id, nome, email FROM usuarios WHERE id = ?",
+            "SELECT id, nome, email, cpf, endereco, estado, cidade FROM usuarios WHERE id = ?",
             (session["usuario_id"],)
         ).fetchone()
 
@@ -90,7 +101,55 @@ def perfil():
         return f"Erro ao carregar perfil: {e}", 500
     finally:
         conn.close()
+# ========= deletar
+@app.post("/delete")
+def delete():
+    conn = get_db_connection()
+    usuario_id = (request.form.get("id"))
+    conn.execute("DELETE from usuarios where id = ?", (usuario_id, ))
 
+    conn.commit()
+
+    return render_template("index.html") # Volta para a página principal
+    # DELETE from usuarios where id = %s
+
+# ========= editar
+# ========= editar
+@app.post("/edit")
+def edit():
+    if "usuario_id" not in session:
+        return redirect(url_for("login_page"))
+
+    # 1. Pegar os dados que vieram do seu formulário HTML
+    usuario_id = request.form.get("id")
+    nome = request.form.get("nome")
+    email = request.form.get("email")
+    cpf = request.form.get("cpf")
+    endereco = request.form.get("endereco")
+    estado = request.form.get("estado")
+    cidade = request.form.get("cidade")
+
+    conn = get_db_connection()
+    try:
+        # 2. Executar o UPDATE
+        conn.execute("""
+            UPDATE usuarios 
+            SET nome = ?, email = ?, cpf = ?, endereco = ?, estado = ?, cidade = ? 
+            WHERE id = ?
+        """, (nome, email, cpf, endereco, estado, cidade, usuario_id))
+        
+        conn.commit()
+        
+        # 3. Atualizar o nome na sessão caso ele tenha mudado
+        session["usuario_nome"] = nome
+        
+        return redirect(url_for("perfil")) 
+    except Exception as e:
+        return f"Erro ao editar o perfil: {e}"
+    finally:
+        conn.close()
+
+# ========= register
 @app.post("/register")
 def register():
     nome = (request.form.get("nome") or "").strip()

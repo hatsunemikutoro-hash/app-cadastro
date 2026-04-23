@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 </head>
 <body>
-    <h1> Perfil do Usuário</h1>
 
     <div class="card">
+        <h1> Perfil do Usuário</h1>
         <div class="box">
             <div class="profilePic">
                 <img src="https://th.bing.com/th/id/OIP._HTokeftFVwzj67zgmYfXwHaEK?w=312&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="">
@@ -20,10 +20,15 @@
             <p><strong>cpf</strong> {{usuario.cpf}}</p>
             <p><strong>endereco</strong> {{usuario.endereco}}</p>
             <p><strong>estado</strong> {{usuario.estado}}</p>
-            <p><strong>cidade</strong> {{usuario.cidade}}</p>
+            <p><strong>cidade</strong> {{usuario.cidade}}</p> 
+            <a href="/edit_pg" class="editBtn">Editar</a>
         </div>
         <br>
-    
+        <form action="/delete" method="post">
+            <input type="hidden" name="id" value="{{ usuario.id }}">
+            <button class="delete">Deletar</button>
+        </form>
+        
         <a href="/" class="btnSair">Voltar</a>
     </div>
    
